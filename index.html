@@ -1,110 +1,115 @@
+
 <!DOCTYPE html>
 <html lang="th">
 <head>
   <meta charset="UTF-8">
-  <title>ชื่อหัวฟอร์มของเรา</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>แบบฟอร์มส่งซ่อมภายนอก</title>
   <style>
     body {
-      background: #fdf6f0;
-      font-family: 'Sarabun', sans-serif;
-      padding: 2rem;
+      font-family: 'Arial', sans-serif;
+      background-color: #fdf6f0;
       color: #333;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
     }
-    h1 {
-      text-align: center;
-      color: #6b5b95;
-    }
-    form {
+
+    .form-container {
+      background-color: #fffaf5;
+      border: 2px solid #ffe3e3;
+      border-radius: 20px;
+      padding: 30px;
       max-width: 500px;
-      margin: auto;
-      background: #fff;
-      padding: 2rem;
-      border-radius: 8px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      width: 100%;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
     }
+
+    h2 {
+      text-align: center;
+      color: #f28b82;
+      margin-bottom: 20px;
+    }
+
     label {
       display: block;
-      margin-top: 1rem;
+      margin-top: 15px;
+      margin-bottom: 5px;
       font-weight: bold;
+      color: #5f6368;
     }
-    select, input[type="text"], input[type="datetime-local"] {
+
+    select, input[type="text"], input[type="date"], button {
       width: 100%;
-      padding: 0.5rem;
-      margin-top: 0.5rem;
+      padding: 10px;
       border: 1px solid #ccc;
-      border-radius: 4px;
+      border-radius: 10px;
+      font-size: 16px;
+      box-sizing: border-box;
     }
+
     button {
-      margin-top: 1.5rem;
-      padding: 0.75rem;
-      width: 100%;
-      background-color: #a2d5f2;
+      margin-top: 20px;
+      background-color: #ffd6d6;
+      color: #333;
+      font-weight: bold;
       border: none;
-      border-radius: 4px;
-      font-size: 1rem;
-      color: #fff;
       cursor: pointer;
+      transition: background-color 0.3s ease;
     }
+
     button:hover {
-      background-color: #92c9e0;
+      background-color: #ffbdbd;
     }
-    .success-message {
-      text-align: center;
-      color: green;
-      margin-top: 1rem;
+
+    @media (max-width: 600px) {
+      .form-container {
+        padding: 20px;
+      }
     }
   </style>
 </head>
 <body>
-  <h1>ชื่อหัวฟอร์มของเรา</h1>
-  <form id="repairForm">
-    <label for="equipment">ครุภัณฑ์ที่ส่งซ่อม</label>
-    <select id="equipment" name="entry.1234567890" required>
-      <option value="">-- เลือก --</option>
-      <option value="computer">computer</option>
-      <option value="ups">ups</option>
-      <option value="printer">printer</option>
-      <option value="notebook">notebook</option>
-    </select>
 
-    <label for="issue">อาการที่ส่งซ่อม</label>
-    <input type="text" id="issue" name="entry.2345678901" required>
+  <div class="form-container">
+    <h2>แบบฟอร์มส่งซ่อมภายนอก</h2>
+    <form 
+      action="https://docs.google.com/forms/d/e/1FAIpQLSdRqRIE8otwqCt5BQxVq1RtDmFBsHc6ZpUACV05uQ2CJd1YlA/formResponse" 
+      method="POST" 
+      target="hidden_iframe" 
+      onsubmit="submitted=true;">
+      
+      <label for="device">ครุภัณฑ์ที่ส่งซ่อม</label>
+      <select name="entry.XXXXXXX" id="device" required>
+        <option value="คอมพิวเตอร์ AIO / Notebook">คอมพิวเตอร์ AIO / Notebook</option>
+        <option value="เครื่องปริ้นเตอร์">เครื่องปริ้นเตอร์</option>
+        <option value="เครื่องสำรองไฟ">เครื่องสำรองไฟ</option>
+        <option value="อุปกรณ์กระจายสัญญาน">อุปกรณ์กระจายสัญญาน</option>
+      </select>
 
-    <label for="repairDate">วันที่ส่งซ่อม</label>
-    <input type="datetime-local" id="repairDate" name="entry.3456789012" required>
+      <label for="problem">อาการที่เสีย</label>
+      <input type="text" name="entry.YYYYYYY" id="problem" required>
 
-    <label for="sender">คนที่ส่งซ่อม</label>
-    <select id="sender" name="entry.4567890123" required>
-      <option value="">-- เลือก --</option>
-      <option value="ไพรพนา ชัยนคร">ไพรพนา ชัยนคร</option>
-      <option value="ชนะชัย บุตรดี">ชนะชัย บุตรดี</option>
-    </select>
+      <label for="date">วันที่ส่งซ่อม</label>
+      <input type="date" name="entry.ZZZZZZZ" id="date" required>
 
-    <button type="submit">ส่งข้อมูล</button>
-    <div class="success-message" id="successMessage" style="display:none;">
-      ส่งข้อมูลเรียบร้อยแล้ว!
-    </div>
-  </form>
+      <label for="sender">คนที่ส่งซ่อม</label>
+      <select name="entry.AAAAAAA" id="sender" required>
+        <option value="ไพรพนา">ไพรพนา</option>
+        <option value="ชนะชัย">ชนะชัย</option>
+      </select>
+
+      <button type="submit">ส่งข้อมูล</button>
+    </form>
+
+    <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;" onload="if(submitted){ alert('ส่งข้อมูลเรียบร้อยแล้ว'); }"></iframe>
+  </div>
 
   <script>
-    document.getElementById('repairForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-
-      const form = e.target;
-      const data = new FormData(form);
-
-      fetch('https://docs.google.com/forms/d/e/1FAIpQLSfQHyqFrJ7xYTzyEY0Z5kdLH-0BhQLKywe6tPJcTH1o56zOcg/viewform?usp=preview', {
-        method: 'POST',
-        mode: 'no-cors',
-        body: data
-      }).then(() => {
-        form.reset();
-        document.getElementById('successMessage').style.display = 'block';
-      }).catch((error) => {
-        console.error('Error!', error.message);
-      });
-    });
+    let submitted = false;
   </script>
+
 </body>
 </html>
