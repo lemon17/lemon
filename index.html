@@ -58,7 +58,7 @@
 <body>
   <div class="form-container">
     <h1>แบบฟอร์มส่งซ่อมภายนอก</h1>
-    <form id="autoForm" action="https://docs.google.com/forms/d/e/1FAIpQLScmoDAO4Ji6ipQOj_BUfx9d_ey5ZGO4ArY3epa4L5ho4tjlRQ/formResponse" method="POST" target="hidden_iframe" onsubmit="submitted=true;">
+    <form id="customForm" action="https://docs.google.com/forms/d/e/1FAIpQLScmoDAO4Ji6ipQOj_BUfx9d_ey5ZGO4ArY3epa4L5ho4tjlRQ/formResponse" method="POST" target="hidden_iframe" onsubmit="submitted=true;">
       <label for="bookid">เลขที่หนังสือ</label>
       <input type="text" name="entry.951006964" id="bookid" readonly required>
 
@@ -77,20 +77,18 @@
 
       <button type="submit">ส่งข้อมูล</button>
     </form>
-    <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;" onload="if(submitted) { document.getElementById('autoForm').reset(); generateBookId(); alert('ส่งข้อมูลเรียบร้อยแล้ว'); }"></iframe>
+    <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;" onload="if(submitted) { document.getElementById('customForm').reset(); generateBookId(); alert('ส่งข้อมูลเรียบร้อยแล้ว'); }"></iframe>
   </div>
 
   <script>
     var submitted = false;
+    var baseId = "0033.301.14/";
+    var localStorageKey = "bookIdCounter";
 
     function generateBookId() {
-      const now = new Date();
-      const y = now.getFullYear().toString().slice(-2);
-      const m = String(now.getMonth() + 1).padStart(2, '0');
-      const d = String(now.getDate()).padStart(2, '0');
-      const rand = Math.floor(100 + Math.random() * 900); // 3 digit random number
-      const bookId = `${y}${m}${d}-${rand}`;
-      document.getElementById('bookid').value = bookId;
+      let count = parseInt(localStorage.getItem(localStorageKey) || "1", 10);
+      document.getElementById("bookid").value = baseId + count;
+      localStorage.setItem(localStorageKey, count + 1);
     }
 
     window.onload = generateBookId;
