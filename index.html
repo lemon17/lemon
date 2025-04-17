@@ -3,113 +3,97 @@
 <html lang="th">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>แบบฟอร์มส่งซ่อมภายนอก</title>
   <style>
     body {
-      font-family: 'Arial', sans-serif;
+      font-family: 'Segoe UI', sans-serif;
       background-color: #fdf6f0;
       color: #333;
       display: flex;
       justify-content: center;
       align-items: center;
-      min-height: 100vh;
-      padding: 20px;
+      height: 100vh;
+      margin: 0;
     }
-
     .form-container {
-      background-color: #fffaf5;
-      border: 2px solid #ffe3e3;
-      border-radius: 20px;
+      background-color: #ffffff;
       padding: 30px;
-      max-width: 500px;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
       width: 100%;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      max-width: 500px;
     }
-
-    h2 {
+    h1 {
       text-align: center;
-      color: #f28b82;
+      color: #a2836e;
       margin-bottom: 20px;
     }
-
     label {
       display: block;
       margin-top: 15px;
       margin-bottom: 5px;
-      font-weight: bold;
-      color: #5f6368;
+      color: #5e5e5e;
     }
-
-    select, input[type="text"], input[type="date"], button {
+    select, input[type="text"], input[type="date"], input[readonly], button {
       width: 100%;
       padding: 10px;
-      border: 1px solid #ccc;
-      border-radius: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
       font-size: 16px;
-      box-sizing: border-box;
+      background-color: #f9f3ef;
     }
-
     button {
       margin-top: 20px;
-      background-color: #ffd6d6;
-      color: #333;
-      font-weight: bold;
+      background-color: #d7bfae;
+      color: #fff;
       border: none;
       cursor: pointer;
       transition: background-color 0.3s ease;
     }
-
     button:hover {
-      background-color: #ffbdbd;
-    }
-
-    @media (max-width: 600px) {
-      .form-container {
-        padding: 20px;
-      }
+      background-color: #c6a995;
     }
   </style>
 </head>
 <body>
-
   <div class="form-container">
-    <h2>แบบฟอร์มส่งซ่อมภายนอก</h2>
-    <form 
-      action="https://docs.google.com/forms/d/e/1FAIpQLSdRqRIE8otwqCt5BQxVq1RtDmFBsHc6ZpUACV05uQ2CJd1YlA/formResponse" 
-      method="POST" 
-      target="hidden_iframe" 
-      onsubmit="submitted=true;">
-      
-      <label for="device">ครุภัณฑ์ที่ส่งซ่อม</label>
-      <select name="entry.XXXXXXX" id="device" required>
-        <option value="คอมพิวเตอร์ AIO / Notebook">คอมพิวเตอร์ AIO / Notebook</option>
-        <option value="เครื่องปริ้นเตอร์">เครื่องปริ้นเตอร์</option>
-        <option value="เครื่องสำรองไฟ">เครื่องสำรองไฟ</option>
-        <option value="อุปกรณ์กระจายสัญญาน">อุปกรณ์กระจายสัญญาน</option>
-      </select>
+    <h1>แบบฟอร์มส่งซ่อมภายนอก</h1>
+    <form id="autoForm" action="https://docs.google.com/forms/d/e/1FAIpQLScmoDAO4Ji6ipQOj_BUfx9d_ey5ZGO4ArY3epa4L5ho4tjlRQ/formResponse" method="POST" target="hidden_iframe" onsubmit="submitted=true;">
+      <label for="bookid">เลขที่หนังสือ</label>
+      <input type="text" name="entry.951006964" id="bookid" readonly required>
 
-      <label for="problem">อาการที่เสีย</label>
-      <input type="text" name="entry.YYYYYYY" id="problem" required>
+      <label for="subject">เรื่อง</label>
+      <input type="text" name="entry.375819386" id="subject" required>
 
-      <label for="date">วันที่ส่งซ่อม</label>
-      <input type="date" name="entry.ZZZZZZZ" id="date" required>
+      <label for="date">วันที่</label>
+      <input type="date" name="entry.1940288872" id="date" required>
 
-      <label for="sender">คนที่ส่งซ่อม</label>
-      <select name="entry.AAAAAAA" id="sender" required>
-        <option value="ไพรพนา">ไพรพนา</option>
-        <option value="ชนะชัย">ชนะชัย</option>
+      <label for="to">ถึง</label>
+      <select name="entry.2007859090" id="to" required>
+        <option value="">-- กรุณาเลือก --</option>
+        <option value="คณะกรรมการ HAIT">คณะกรรมการ HAIT</option>
+        <option value="หน่วยงานเทคโนโลยีสารสนเทศ">หน่วยงานเทคโนโลยีสารสนเทศ</option>
       </select>
 
       <button type="submit">ส่งข้อมูล</button>
     </form>
-
-    <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;" onload="if(submitted){ alert('ส่งข้อมูลเรียบร้อยแล้ว'); }"></iframe>
+    <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;" onload="if(submitted) { document.getElementById('autoForm').reset(); generateBookId(); alert('ส่งข้อมูลเรียบร้อยแล้ว'); }"></iframe>
   </div>
 
   <script>
-    let submitted = false;
-  </script>
+    var submitted = false;
 
+    function generateBookId() {
+      const now = new Date();
+      const y = now.getFullYear().toString().slice(-2);
+      const m = String(now.getMonth() + 1).padStart(2, '0');
+      const d = String(now.getDate()).padStart(2, '0');
+      const rand = Math.floor(100 + Math.random() * 900); // 3 digit random number
+      const bookId = `${y}${m}${d}-${rand}`;
+      document.getElementById('bookid').value = bookId;
+    }
+
+    window.onload = generateBookId;
+  </script>
 </body>
 </html>
