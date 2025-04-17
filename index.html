@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <title>ชื่อหัวฟอร์มของเรา</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      background: #fdf6f0;
+      font-family: 'Sarabun', sans-serif;
+      padding: 2rem;
+      color: #333;
+    }
+    h1 {
+      text-align: center;
+      color: #6b5b95;
+    }
+    form {
+      max-width: 500px;
+      margin: auto;
+      background: #fff;
+      padding: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    label {
+      display: block;
+      margin-top: 1rem;
+      font-weight: bold;
+    }
+    select, input[type="text"], input[type="datetime-local"] {
+      width: 100%;
+      padding: 0.5rem;
+      margin-top: 0.5rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    button {
+      margin-top: 1.5rem;
+      padding: 0.75rem;
+      width: 100%;
+      background-color: #a2d5f2;
+      border: none;
+      border-radius: 4px;
+      font-size: 1rem;
+      color: #fff;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #92c9e0;
+    }
+    .success-message {
+      text-align: center;
+      color: green;
+      margin-top: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <h1>ชื่อหัวฟอร์มของเรา</h1>
+  <form id="repairForm">
+    <label for="equipment">ครุภัณฑ์ที่ส่งซ่อม</label>
+    <select id="equipment" name="entry.1234567890" required>
+      <option value="">-- เลือก --</option>
+      <option value="computer">computer</option>
+      <option value="ups">ups</option>
+      <option value="printer">printer</option>
+      <option value="notebook">notebook</option>
+    </select>
+
+    <label for="issue">อาการที่ส่งซ่อม</label>
+    <input type="text" id="issue" name="entry.2345678901" required>
+
+    <label for="repairDate">วันที่ส่งซ่อม</label>
+    <input type="datetime-local" id="repairDate" name="entry.3456789012" required>
+
+    <label for="sender">คนที่ส่งซ่อม</label>
+    <select id="sender" name="entry.4567890123" required>
+      <option value="">-- เลือก --</option>
+      <option value="ไพรพนา ชัยนคร">ไพรพนา ชัยนคร</option>
+      <option value="ชนะชัย บุตรดี">ชนะชัย บุตรดี</option>
+    </select>
+
+    <button type="submit">ส่งข้อมูล</button>
+    <div class="success-message" id="successMessage" style="display:none;">
+      ส่งข้อมูลเรียบร้อยแล้ว!
+    </div>
+  </form>
+
+  <script>
+    document.getElementById('repairForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const form = e.target;
+      const data = new FormData(form);
+
+      fetch('https://docs.google.com/forms/d/e/1FAIpQLSeuZiyN-uQBbmmSLxT81xGUfgjMQpUFyJ4D7r-0zjegTy_0HA/formResponse', {
+        method: 'POST',
+        mode: 'no-cors',
+        body: data
+      }).then(() => {
+        form.reset();
+        document.getElementById('successMessage').style.display = 'block';
+      }).catch((error) => {
+        console.error('Error!', error.message);
+      });
+    });
+  </script>
+</body>
+</html>
